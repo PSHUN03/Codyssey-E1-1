@@ -1,0 +1,29 @@
+# 공식 NGINX 이미지는 컨테이너 시작 시 /etc/nginx/templates/*.template 파일의
+# ${환경변수}를 실제 값으로 바꿔 /etc/nginx/conf.d/ 에 설정 파일을 만든다.
+# (정의된 환경 변수만 치환되므로 NGINX 자체 변수인 $uri 등은 그대로 남는다)
+
+server {
+    listen       ${NGINX_PORT};
+    server_name  localhost;
+    charset      utf-8;
+
+    # 응답 헤더로 실행 모드를 확인할 수 있게 한다.
+    add_header X-App-Mode "${APP_MODE}" always;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html;
+    }
+
+    # 헬스체크용 엔드포인트 (Dockerfile HEALTHCHECK가 사용)
+    location = /health {
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    # 현재 실행 설정(환경 변수) 확인용 엔드포인트
+    location = /env {
+        default_type application/json;
+        return 200 '{"app_mode": "${APP_MODE}", "nginx_port": "${NGINX_PORT}"}\n';
+    }
+}

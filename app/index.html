@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codyssey E1-1 · 나의 개발 작업실</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        main {
+            max-width: 560px;
+            padding: 40px;
+            border-radius: 16px;
+            background: #1e293b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        h1 { margin-top: 0; font-size: 1.6rem; }
+        code { color: #7dd3fc; }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #0ea5e9;
+            color: #0f172a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>🐳 Codyssey E1-1 · 나의 개발 작업실</h1>
+        <p>이 페이지는 <code>Dockerfile</code>로 직접 만든 커스텀 NGINX 이미지(<code>my-web</code>)에서 제공됩니다.</p>
+        <p>실행 모드: <span class="badge" id="mode">확인 중…</span></p>
+        <p>컨테이너 내부 포트: <code id="port">-</code></p>
+        <p>브라우저 주소창의 포트(예: 8080)는 <strong>호스트 포트</strong>이고,
+           <code>-p 호스트포트:컨테이너포트</code>로 컨테이너 안의 NGINX에 연결됩니다.</p>
+    </main>
+    <script>
+        // /env 엔드포인트는 컨테이너 환경 변수(APP_MODE, NGINX_PORT)를 JSON으로 돌려준다.
+        fetch("/env")
+            .then((response) => response.json())
+            .then((env) => {
+                document.getElementById("mode").textContent = env.app_mode;
+                document.getElementById("port").textContent = env.nginx_port;
+            })
+            .catch(() => {
+                document.getElementById("mode").textContent = "알 수 없음";
+            });
+    </script>
+</body>
+</html>
