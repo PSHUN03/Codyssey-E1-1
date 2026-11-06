@@ -351,6 +351,7 @@ remote.origin.url=https://github.com/PSHUN03/Codyssey-E1-1.git
 | VS Code GitHub 로그인 | VS Code 저장소 연동 (WSL: Ubuntu) |
 |---|---|
 | ![VS Code GitHub 로그인](docs/screenshots/vscode-github-login.png) | ![VS Code 저장소 연동](docs/screenshots/vscode-repo.png) |
+| 계정 메뉴에 `PSHUN03 (GitHub)` 로그인 표시 | 소스 제어 패널의 변경 사항이 비어 있음(모두 커밋됨). 그래프 맨 위 커밋에 `main`과 구름 아이콘(= GitHub의 `origin/main`)이 함께 붙어 있어 로컬과 GitHub가 같은 상태. 왼쪽 아래 `WSL: Ubuntu`, 브랜치 `main` |
 
 ---
 
